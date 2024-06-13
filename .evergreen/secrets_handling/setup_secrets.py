@@ -73,7 +73,7 @@ def write_secrets(vaults, region, profile, format):
             with open("secrets-export.yml", "w", newline="\n") as out:
                 # These values are secrets, do not print them
                 for key, val in pairs.items():
-                    out.write(key + ": " + "\"" + val + "\"\n")
+                    out.write(key + ": " + val + "\n")
         case _:
             raise ValueError("Unknown output format: " + format)
 
