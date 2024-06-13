@@ -19,9 +19,16 @@ pushd $SCRIPT_DIR/../auth_aws
 popd
 set -x
 echo "Getting secrets:" "$@"
+echo "new code!"
 python $SCRIPT_DIR/setup_secrets.py "$@"
-source $(pwd)/secrets-export.sh
-echo "Got secrets"
+if [ -f $(pwd)/secrets-export.sh ]; then
+  source $(pwd)/secrets-export.sh
+fi
+
+if [ -f $(pwd)/secrets-export.yml ]; then
+  echo "Yml!"
+  cat $(pwd)/secrets-export.yml
+fi
 
 # Restore the script dir if we've overridden it.
 if [ -n "${ORIG_SCRIPT_DIR}" ]; then
