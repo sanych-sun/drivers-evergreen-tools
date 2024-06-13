@@ -55,18 +55,27 @@ def get_secrets(vaults, region, profile):
     return [json.loads(s) for s in secrets]
 
 
-def write_secrets(vaults, region, profile):
+def write_secrets(vaults, region, profile, format):
     pairs = {}
     secrets = get_secrets(vaults, region, profile)
     for secret in secrets:
         for key, val in secret.items():
             pairs[key.upper()] = val
 
-    with open("secrets-export.sh", "w", newline="\n") as out:
-        # These values are secrets, do not print them
-        out.write("#!/usr/bin/env bash\n\nset +x\n")
-        for key, val in pairs.items():
-            out.write("export " + key + "=" + "\"" + val + "\"\n")
+    match format:
+        case 'sh':
+            with open("secrets-export.sh", "w", newline="\n") as out:
+                # These values are secrets, do not print them
+                out.write("#!/usr/bin/env bash\n\nset +x\n")
+                for key, val in pairs.items():
+                    out.write("export " + key + "=" + "\"" + val + "\"\n")
+        case 'yml':
+            with open("secrets-export.yml", "w", newline="\n") as out:
+                # These values are secrets, do not print them
+                for key, val in pairs.items():
+                    out.write(key + ": " + "\"" + val + "\"\n")
+        case _:
+            raise ValueError("Unknown output format: " + format)
 
 
 def main():
@@ -82,10 +91,11 @@ def main():
     parser.add_argument("-r", "--region", type=str, metavar="region", default="us-east-1",
                         help="the AWS region containing the given vaults.")
     parser.add_argument("vaults", metavar="V", type=str, nargs="+", help="a vault to fetch secrets from")
+    parser.add_argument("-f", "--format", type=str, metavar="format", default="sh", help="defines the output format.")
 
     args = parser.parse_args()
 
-    write_secrets(args.vaults, args.region, args.profile)
+    write_secrets(args.vaults, args.region, args.profile, args.format)
 
 
 if __name__ == '__main__':
