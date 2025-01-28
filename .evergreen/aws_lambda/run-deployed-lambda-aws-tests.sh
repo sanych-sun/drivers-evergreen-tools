@@ -95,6 +95,10 @@ trap cleanup EXIT SIGHUP
 
 cd "${TEST_LAMBDA_DIRECTORY}"
 
+echo "==========================================="
+echo "${PATH}"
+echo "==========================================="
+
 sam build ${SAM_BUILD_ARGS:-}
 
 deploy_lambda_function
