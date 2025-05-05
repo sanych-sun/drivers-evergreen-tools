@@ -82,7 +82,8 @@ if ! command -V uv &>/dev/null; then
   
   echo "$PATH"
   echo "uv before patching PATH: $(which uv)"
-  ## PATH="${_venv_dir}/Scripts/:$PATH"
+  PATH="${_venv_dir}/Scripts/:$PATH"
+  echo "$PATH"
   echo "uv after patching PATH: $(which uv)"
   
   
