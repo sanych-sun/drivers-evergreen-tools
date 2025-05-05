@@ -80,7 +80,7 @@ if ! command -V uv &>/dev/null; then
     _suffix=".exe"
   fi
   
-  $PATH
+  echo "$PATH"
   echo "uv before patching PATH: $(which uv)"
   PATH="${_venv_dir}/Scripts/:$PATH"
   echo "uv after patching PATH: $(which uv)"
