@@ -63,10 +63,13 @@ fi
 if ! command -V uv &>/dev/null; then
   . ./venv-utils.sh
   _venv_dir="$(mktemp -d)"
+  echo "venv_dir  ${_venv_dir}"
   if [ "Windows_NT" = "${OS:-}" ]; then
     _venv_dir="$(cygpath -m $_venv_dir)"
   fi
   echo "Installing uv using pip..."
+  
+  echo "$DRIVERS_TOOLS_PYTHON ${DRIVERS_TOOLS_PYTHON}"
   venvcreate "$DRIVERS_TOOLS_PYTHON" "$_venv_dir"
   # Install uv into the newly created venv.
   python -m pip install --force-reinstall uv
