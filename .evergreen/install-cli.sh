@@ -80,6 +80,8 @@ if ! command -V uv &>/dev/null; then
     _suffix=".exe"
   fi
   
+  DIR "${_venv_dir}/Scripts/"
+  PATH="${_venv_dir}/Scripts/:$PATH"
   echo ===========================
   echo "$(which uv)"
   # Symlink uv and uvx binaries.
