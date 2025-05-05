@@ -80,11 +80,11 @@ if ! command -V uv &>/dev/null; then
     _suffix=".exe"
   fi
   
-  echo "$PATH"
-  echo "uv before patching PATH: $(which uv)"
-  PATH="${_venv_dir}/Scripts/:$PATH"
-  echo "$PATH"
-  echo "uv after patching PATH: $(which uv)"
+#  echo "$PATH"
+#  echo "uv before patching PATH: $(which uv)"
+#  PATH="${_venv_dir}/Scripts/:$PATH"
+#  echo "$PATH"
+#  echo "uv after patching PATH: $(which uv)"
   
   
   
@@ -93,8 +93,8 @@ if ! command -V uv &>/dev/null; then
   # Symlink uv and uvx binaries.
   _install_dir="${DRIVERS_TOOLS}/.bin"
   mkdir -p "$_install_dir"
-  ln -s "$(which uv)" "$_install_dir/uv${_suffix}"
-  ln -s "$(which uvx)" "$_install_dir/uvx${_suffix}"
+  ln -s "${_venv_dir}/Scripts/uv${_suffix}" "$_install_dir/uv${_suffix}"
+  ln -s "${_venv_dir}/Scripts/uvx${_suffix}" "$_install_dir/uvx${_suffix}"
   echo "Installed to ${_install_dir}"
   deactivate
   echo "Installing uv using pip... done."
