@@ -67,6 +67,8 @@ if ! command -V uv &>/dev/null; then
   if [ "Windows_NT" = "${OS:-}" ]; then
     _venv_dir="$(cygpath -m $_venv_dir)"
   fi
+  
+  echo "venv_dir after: ${_venv_dir}"
   echo "Installing uv using pip..."
   
   echo "$DRIVERS_TOOLS_PYTHON ${DRIVERS_TOOLS_PYTHON}"
