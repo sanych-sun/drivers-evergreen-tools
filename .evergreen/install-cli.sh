@@ -80,10 +80,15 @@ if ! command -V uv &>/dev/null; then
     _suffix=".exe"
   fi
   
-  DIR "${_venv_dir}/Scripts/"
+  
+  echo "uv before patching PATH: $(which uv)"
   PATH="${_venv_dir}/Scripts/:$PATH"
+  echo "uv after patching PATH: $(which uv)"
+  
+  
+  
   echo ===========================
-  echo "$(which uv)"
+  
   # Symlink uv and uvx binaries.
   _install_dir="${DRIVERS_TOOLS}/.bin"
   mkdir -p "$_install_dir"
