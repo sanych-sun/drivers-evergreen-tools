@@ -47,6 +47,8 @@ venvcreate() {
     real_path="$venv_path"
   fi
 
+  echo "real_path: ${real_path}"
+
   # Prefer venv, but fallback to virtualenv if venv fails.
   for mod in "venv" "virtualenv"; do
     # Ensure a clean directory before attempting to create a virtual
